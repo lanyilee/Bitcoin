@@ -26,3 +26,8 @@ func (block *Block) SetHash() {
 	hash := sha256.Sum256(hearders)
 	block.Hash = hash[:]
 }
+
+//创世纪块
+func NewGenesisBlock() *Block {
+	return NewBlock("Genesis Block", []byte{})
+}
