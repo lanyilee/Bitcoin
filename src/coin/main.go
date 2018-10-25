@@ -1,7 +1,6 @@
 package main
 
 import {
-	"fmt"
 	"core"
 }
 
@@ -12,5 +11,4 @@ import {
 
 func main(){
 	bc := core.NewBlockChain()
-
 }
