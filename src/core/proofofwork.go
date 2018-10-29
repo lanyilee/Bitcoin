@@ -22,11 +22,11 @@ type ProofOfWork struct {
 //主要是得到一个某个数左移n位后的整数target
 func NewProofOfWork(b *Block) *ProofOfWork {
 	target := big.NewInt(1)
-	fmt.Println("target = ")
-	fmt.Println(target)
+	//fmt.Println("target = ")
+	//fmt.Println(target)
 	target.Lsh(target, uint(256-targetBits))
-	fmt.Println("target 左移后 ")
-	fmt.Println(target)
+	//fmt.Println("target 左移后 ")
+	//fmt.Println(target)
 	pow := &ProofOfWork{b, target}
 	return pow
 }
@@ -65,4 +65,14 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 	}
 	fmt.Printf("\n\n")
 	return nonce, hash[:]
+}
+
+//工作量证明
+func (pow *ProofOfWork) Validate() bool {
+	var hashInt big.Int
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	hashInt.SetBytes(hash[:])
+	flag := hashInt.Cmp(pow.target) == -1
+	return flag
 }
